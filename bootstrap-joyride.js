@@ -27,12 +27,12 @@
   };
 
   $.fn.extend({
-    featureTour: function(options) {
+    BootJoyride: function(options) {
       var currentStep, log, setCookieStep, settings;
       settings = {
-        tipContent: '#featureTourTipContent',
+        tipContent: '#JoyrideTipContent',
         cookieMonster: false,
-        cookieName: 'bootstrapFeatureTour',
+        cookieName: 'bootstrapJoyride',
         cookieDomain: false,
         postRideCallback: $.noop,
         postStepCallback: $.noop,

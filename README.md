@@ -49,7 +49,7 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 
 	<script type="text/javascript">
 	  $(window).load(function() {
-	    $(this).featureTour({
+	    $(this).Joyride({
 	      /* Settings will go here */
 	    });
 	  });
@@ -62,7 +62,7 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 
 	$('#startride').click(function (e) {
     e.preventDefault();
-	    $(this).featureTour({
+	    $(this).BootJoyride({
 	      'cookieMonster': false,           	// true/false for whether cookies are used
 	      'cookieName': 'myHomepageJoyride',  	// choose your own cookie name
 	      'cookieDomain': false,           		// set to false or yoursite.com
@@ -100,14 +100,14 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 	$('#startride').click(function (e) {
     e.preventDefault();
     $('#overlay').show();
-	    $(this).featureTour({
-	      'cookieMonster': false,           // true/false for whether cookies are used
+	    $(this).BootJoyride({
+	      'cookieMonster': false,           	// true/false for whether cookies are used
 	      'cookieName': 'myHomepageJoyride',  	// choose your own cookie name
-	      'cookieDomain': false,           	// set to false or yoursite.com
-	      'tipContent': '#JoyrideCourseID',    		// The ID of the <ol> used for content
-	      'postRideCallback': endride,      // A method to call once the tour closes
-	      'postStepCallback': $.noop,      	// A method to call after each step
-	      'nextOnClose': false,            	// If cookies are enabled, increment the current step on close
+	      'cookieDomain': false,           		// set to false or yoursite.com
+	      'tipContent': '#JoyrideCourseID',    	// The ID of the <ol> used for content
+	      'postRideCallback': endride,      	// A method to call once the tour closes
+	      'postStepCallback': $.noop,      		// A method to call after each step
+	      'nextOnClose': false,            		// If cookies are enabled, increment the current step on close
 	      'debug': false
 	    });
     });
@@ -122,7 +122,7 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 
 	- Set your settings to override the defaults
 
-	$(this).featureTour({
+	$(this).BootJoyride({
 	  'cookieMonster': true,           		// true/false for whether cookies are used
 	  'cookieName': 'myHomepageJoyride',  	// choose your own cookie name
 	  'cookieDomain': false,           		// set to false or yoursite.com
@@ -137,7 +137,7 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 ## Credits
 Orignial Idea and code is from:
 Bootstrap-Tour by [GILD](http://www.gild.com).
-Since no active dev i decided to fix the bugs and improve it and rebrand it.
+Since no active dev i decided to fix the bugs and improve and rebrand it.
 
 ## MIT Open Source License
 
