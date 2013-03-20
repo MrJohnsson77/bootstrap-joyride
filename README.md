@@ -11,7 +11,9 @@ Bootstrap Joyride is MIT-licensed and absolutely free to use.
 Bootstrap Joyride is inspired by [Joyride](http://www.zurb.com/playground/jquery-joyride-feature-tour-plugin) and relies on a similar structure for the tour markup.
 
 ### BUGS 
-Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to contribute.
+Not really, but still yes :-) Some stuff hardcoded that should be changed. 
+Started to rewrite and narrow down the bugs and add more settings. 
+Please feel free to contribute.
 
 ### Add Bootstrap Joyride to your page
 
