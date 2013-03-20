@@ -35,7 +35,7 @@ Yes ofcourse, started to rewrite and narrow down the bugs. Please feel free to c
 
 ### Create Your Joyride Outline
 
-	- Each joyride stop is made in a ol.
+	- Each joyride tour is made in a ol.
 	- The joyride is in the order of the li's
 
 	<ol id="JoyrideCourseID">
