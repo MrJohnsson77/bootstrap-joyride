@@ -110,7 +110,7 @@
             return $target.popover('show');
           }
         });
-        $('a.tour-tip-close').live('click', function() {
+        $(document).on('click', 'a.tour-tip-close', function() {
           var current_step;
           current_step = $(this).data('touridx');
           $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
@@ -119,7 +119,7 @@
           }
           return settings.postRideCallback();
         });
-        return $('a.tour-tip-next').live('click', function() {
+        return $(document).on('click', 'a.tour-tip-next', function() {
           var current_step, next_tip, _ref, id;
           current_step = $(this).data('touridx');
           log("current step: " + current_step);
