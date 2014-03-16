@@ -71,12 +71,14 @@
 
       return this.each(function() {
         var joyrideContext = this; 
-        var $tipContent, $tips, first_step;
+        var $tips, first_step;
+        var $tipContents = $();
         $tipContent = $(settings.tipContent).first();
         if ($tipContent == null) {
           log("can't find tipContent from selector: " + settings.tipContent);
         }
         $tips = $tipContent.find('li');
+        $(joyrideContext).data("tips", $tips);
         first_step = currentStep();
         log("first step: " + first_step);
         if (first_step > $tips.length) {
@@ -95,18 +97,22 @@
             return;
           }
           // Make target encapsulated to original context
-          $target = $(target, joyrideContext).first();
-          if (!$target.length) {
-        	  log("no target found: " + target);
+          if (!($target = $(target, joyrideContext).first()).length) {
+            log("no target found: " + target);
             return;
           }
           $target.popover({
             html : true,
             trigger: 'manual',
-            title: tip_data['title'] != null ? "" + tip_data['title'] + "  <a class=\"tour-tip-close close\" data-touridx=\"" + (idx + 1) + "\">&times;</a>" : null,
-            content: "<p style=\"height:100px\">" + ($li.html()) + "</p><p style=\"text-align: right\"><a href=\"#\" class=\"tour-tip-next btn btn-success\" data-touridx=\"" + (idx + 1) + "\">" + ((idx + 1) < $tips.length ? 'Next <i class="icon-chevron-right icon-white"></i>' : '<i class="icon-ok icon-white"></i> Done') + "</a></p>",
-            placement: tip_data['placement'] || 'right'
+            title: tip_data['title'] ? "" + tip_data['title'] + "  <a class=\"tour-tip-close close\" data-touridx=\"" + (idx + 1) + "\">&times;</a>" : null,
+            content: "<p style=\"height:100px\">" + ($li.html()) + "</p><p style=\"text-align: right\"><a href=\"#\" class=\"tour-tip-next btn\" data-touridx=\"" + (idx + 1) + "\">" + ((idx + 1) < $tips.length ? 'Next <i class="icon-chevron-right"></i>' : '<i class="icon-ok"></i> Done') + "</a></p>",
+            placement: tip_data['placement'] || 'right',
+            container: 'body'
           });
+          
+          $target.popover("tip");
+          var $tip = $target.data("popover").$tip
+          $tipContents.push($tip);
           
           $li.data('target', $target);
           if (idx === (first_step - 1)) {
@@ -115,37 +121,48 @@
             return $target.popover('show');
           }
         });
-        $(document).on('click', 'a.tour-tip-close', function() {
-          var current_step;
-          current_step = $(this).data('touridx');
-          $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
-          if (settings.nextOnClose) {
-            return setCookieStep(current_step + 1);
-          }
-          return settings.postRideCallback(joyrideContext);
-        });
-        return $(document).on('click', 'a.tour-tip-next', function() {
-          var current_step, next_tip, _ref, id;
-          current_step = $(this).data('touridx');
-          log("current step: " + current_step);
-          $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
-          if (settings.postStepCallback !== $.noop) {
-            settings.postStepCallback($(this).data('touridx'));
-          }
-          next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('target') : void 0;
-          
-          setCookieStep(current_step + 1);
-          if (next_tip != null) {
-            next_tip.popover('show');
-            var $popover = $(next_tip).data("popover").$tip;
-            var targetOffset = $popover.offset().top - 300;
-            $('html, body').animate({scrollTop: targetOffset}, 500);
-            return next_tip;
-          } else {
-            if (settings.postRideCallback !== $.noop) {
-              return settings.postRideCallback(joyrideContext);
+        
+        return $tipContents.each(function(){
+          // clicks only have context of the tooltip created for joyride
+          this.on('click', 'a.tour-tip-close', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var current_step;
+            current_step = $(this).data('touridx');
+            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
+            if (settings.nextOnClose) {
+              return setCookieStep(current_step + 1);
             }
-          }
+            return settings.postRideCallback(joyrideContext);
+          });
+
+          this.on('click', 'a.tour-tip-next', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var current_step, next_tip, _ref, id;
+            current_step = $(this).data('touridx');
+            log("current step: " + current_step);
+            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
+            if (settings.postStepCallback !== $.noop) {
+              settings.postStepCallback($(this).data('touridx'));
+            }
+            next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('target') : void 0;
+            
+            setCookieStep(current_step + 1);
+            if (next_tip != null) {
+              next_tip.popover('show');
+              var $popover = $(next_tip).data("popover").$tip;
+              var targetOffset = $popover.offset().top - 300;
+              $('html, body').animate({scrollTop: targetOffset}, 500);
+              return next_tip;
+            } else {
+              if (settings.postRideCallback !== $.noop) {
+                return settings.postRideCallback(joyrideContext);
+              }
+            }
+          });
         });
       });
     }
