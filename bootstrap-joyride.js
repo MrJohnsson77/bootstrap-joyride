@@ -68,7 +68,9 @@
           });
         }
       };
+
       return this.each(function() {
+        var joyrideContext = this; 
         var $tipContent, $tips, first_step;
         $tipContent = $(settings.tipContent).first();
         if ($tipContent == null) {
@@ -92,7 +94,10 @@
           if ((target = tip_data['target']) == null) {
             return;
           }
-          if (($target = $(target).first()) == null) {
+          // Make target encapsulated to original context
+          $target = $(target, joyrideContext).first();
+          if (!$target.length) {
+        	  log("no target found: " + target);
             return;
           }
           $target.popover({
@@ -105,7 +110,7 @@
           
           $li.data('target', $target);
           if (idx === (first_step - 1)) {
-            var targetOffset = $(tip_data['target']).offset().top - 300;
+            var targetOffset = $target.offset().top - 300;
             $('html, body').animate({scrollTop: targetOffset}, 500);
             return $target.popover('show');
           }
@@ -117,7 +122,7 @@
           if (settings.nextOnClose) {
             return setCookieStep(current_step + 1);
           }
-          return settings.postRideCallback();
+          return settings.postRideCallback(joyrideContext);
         });
         return $(document).on('click', 'a.tour-tip-next', function() {
           var current_step, next_tip, _ref, id;
@@ -131,13 +136,14 @@
           
           setCookieStep(current_step + 1);
           if (next_tip != null) {
-            var tst = next_tip.attr('id');
-            var targetOffset = $('#'+tst).offset().top - 300;
+            next_tip.popover('show');
+            var $popover = $(next_tip).data("popover").$tip;
+            var targetOffset = $popover.offset().top - 300;
             $('html, body').animate({scrollTop: targetOffset}, 500);
-            return next_tip.popover('show');
+            return next_tip;
           } else {
             if (settings.postRideCallback !== $.noop) {
-              return settings.postRideCallback();
+              return settings.postRideCallback(joyrideContext);
             }
           }
         });
