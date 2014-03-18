@@ -93,11 +93,14 @@
           }
           $li = $(this);
           tip_data = $li.data();
-          if ((target = tip_data['target']) == null) {
+          target = tip_data['target'];
+          if (target == null) {
             return;
           }
+          
           // Make target encapsulated to original context
-          if (!($target = $(target, joyrideContext).first()).length) {
+          $target = $(target, joyrideContext).first();
+          if (!$target.length) {
             log("no target found: " + target);
             return;
           }
@@ -105,7 +108,7 @@
             html : true,
             trigger: 'manual',
             title: tip_data['title'] ? "" + tip_data['title'] + "  <a class=\"tour-tip-close close\" data-touridx=\"" + (idx + 1) + "\">&times;</a>" : null,
-            content: "<p style=\"height:100px\">" + ($li.html()) + "</p><p style=\"text-align: right\"><a href=\"#\" class=\"tour-tip-next btn\" data-touridx=\"" + (idx + 1) + "\">" + ((idx + 1) < $tips.length ? 'Next <i class="icon-chevron-right"></i>' : '<i class="icon-ok"></i> Done') + "</a></p>",
+            content: "<p>" + ($li.html()) + "</p><p style=\"text-align: right\"><a href=\"#\" class=\"tour-tip-next btn\" data-touridx=\"" + (idx + 1) + "\">" + ((idx + 1) < $tips.length ? 'Next <i class="icon-chevron-right"></i>' : '<i class="icon-ok"></i> Done') + "</a></p>",
             placement: tip_data['placement'] || 'right',
             container: 'body'
           });
@@ -114,11 +117,12 @@
           var $tip = $target.data("popover").$tip
           $tipContents.push($tip);
           
-          $li.data('target', $target);
+          $li.data('targetElement', $target);
           if (idx === (first_step - 1)) {
-            var targetOffset = $target.offset().top - 300;
+            $target.popover('show');
+            var targetOffset = $tip.offset().top - ($(window).height() / 2 - $tip.height() / 2);
             $('html, body').animate({scrollTop: targetOffset}, 500);
-            return $target.popover('show');
+            return $target;
           }
         });
         
@@ -130,7 +134,7 @@
             
             var current_step;
             current_step = $(this).data('touridx');
-            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
+            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('targetElement').popover('hide');
             if (settings.nextOnClose) {
               return setCookieStep(current_step + 1);
             }
@@ -144,17 +148,17 @@
             var current_step, next_tip, _ref, id;
             current_step = $(this).data('touridx');
             log("current step: " + current_step);
-            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('target').popover('hide');
+            $(settings.tipContent).first().find("li:nth-child(" + current_step + ")").data('targetElement').popover('hide');
             if (settings.postStepCallback !== $.noop) {
               settings.postStepCallback($(this).data('touridx'));
             }
-            next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('target') : void 0;
+            $next_tip = (_ref = $(settings.tipContent).first().find("li:nth-child(" + (current_step + 1) + ")")) != null ? _ref.data('targetElement') : void 0;
             
             setCookieStep(current_step + 1);
-            if (next_tip != null) {
-              next_tip.popover('show');
-              var $popover = $(next_tip).data("popover").$tip;
-              var targetOffset = $popover.offset().top - 300;
+            if ($next_tip != null) {
+              $next_tip.popover('show');
+              var $popover = $next_tip.data("popover").$tip;
+              var targetOffset = $popover.offset().top - ($(window).height() / 2 - $popover.height() / 2);
               $('html, body').animate({scrollTop: targetOffset}, 500);
               return next_tip;
             } else {
