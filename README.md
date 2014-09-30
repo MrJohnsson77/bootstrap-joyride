@@ -19,7 +19,7 @@ Please feel free to contribute.
 
     - Boostrap Tooltip and Popup javascripts needs to be attached 
     <script src="bootstrap-tooltip.js" type="text/javascript"></script>
-	<script src="bootstrap-popup.js" type="text/javascript"></script>
+	<script src="bootstrap-popover.js" type="text/javascript"></script>
 	
     - Then attach the Bootstrap Joyride plugin
     <script src="bootstrap-joyride.js" type="text/javascript"></script>
