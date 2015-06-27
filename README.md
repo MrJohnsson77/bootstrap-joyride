@@ -17,15 +17,18 @@ Please feel free to contribute.
 
 ### Add Bootstrap Joyride to your page
 
-    - Boostrap Tooltip and Popup javascripts needs to be attached 
+- Boostrap Tooltip and Popup javascripts needs to be attached 
+
     <script src="bootstrap-tooltip.js" type="text/javascript"></script>
-	<script src="bootstrap-popover.js" type="text/javascript"></script>
+    <script src="bootstrap-popover.js" type="text/javascript"></script>
 	
-    - Then attach the Bootstrap Joyride plugin
+- Then attach the Bootstrap Joyride plugin
+
     <script src="bootstrap-joyride.js" type="text/javascript"></script>
 
 ### Define the attach points
 
+```html
 	- Bootstrap Joyride can be attached to any element with a unique ID, in any order.
 	<h3 id="JoyrideStop1">This is neat</h3>
 
@@ -34,36 +37,41 @@ Please feel free to contribute.
 	<a id="JoyrideStop3" href="#url">Click me</a>
 
 	<div id="JoyrideStop4">This is my content</div>
+```	
 
 ### Create Your Joyride Outline
 
-	- Each joyride tour is made in a ol.
-	- The joyride is in the order of the li's
+- Each joyride tour is made in a ol.
+- The joyride is in the order of the li's
 
+```html
 	<ol id="JoyrideCourseID">
 	  <li data-target="#JoyrideStop1" data-placement="bottom" data-title="First Stop">Joyride content...</li>
 	  <li data-target="#JoyrideStop2" data-placement="top" data-title="Second Stop">Joyride content...</li>
 	  <li data-target="#JoyrideStop3" data-placement="left" data-title="Third Stop">Joyride content...</li>
 	  <li data-target="#JoyrideStop4" data-placement="right" data-title="Fourth Stop">Joyride content...</li>
 	</ol>
+```
 
 ### Activate the Joyride
 
-	- Lauch the Joyride on pageload
+##### Launch the Joyride on pageload
 
+```javascript
 	<script type="text/javascript">
 	  $(window).load(function() {
-	    $(this).Joyride({
+	    $(this).BootJoyride({
 	      /* Settings will go here */
 	    });
 	  });
 	</script>
+```
+	
+##### Launch the Joyride on a button click.
 
-	
-	- Lauch the Joyride on a button click.
-	
 	<a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
 
+```javascript
 	$('#startride').click(function (e) {
     e.preventDefault();
 	    $(this).BootJoyride({
@@ -77,10 +85,11 @@ Please feel free to contribute.
 	      'debug': false
 	    });
     });
-
+```
     
-    - Lauch the Joyride on a button click with modal.
+##### Launch the Joyride on a button click with modal.
 
+```css
 	<style>
    	#overlay {
 	    	position: fixed; 
@@ -95,12 +104,12 @@ Please feel free to contribute.
 		    display: none;
 		}
    	</style>
-
+```
 	<div id='overlay'></div>
 
 	<a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
 
-
+```javascript
 	$('#startride').click(function (e) {
     	e.preventDefault();
 	    $('#overlay').show();
@@ -120,10 +129,11 @@ Please feel free to contribute.
     {
     	$('#overlay').hide();
     }
-
+```
 	
 ### Options / Settings
 
+```javascript
 	- Set your settings to override the defaults
 
 	$(this).BootJoyride({
@@ -136,7 +146,7 @@ Please feel free to contribute.
       'nextOnClose': false,            		// If cookies are enabled, increment the current step on close
       'debug': false
 	});
-
+```
 
 ## Credits
 Orignial Idea and code is from:
