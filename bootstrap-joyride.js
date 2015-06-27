@@ -157,7 +157,7 @@
             setCookieStep(current_step + 1);
             if ($next_tip != null) {
               $next_tip.popover('show');
-              var $popover = $next_tip.data("popover").$tip;
+              var $popover = $next_tip.data("bs.popover").$tip;
               var targetOffset = $popover.offset().top - ($(window).height() / 2 - $popover.height() / 2);
               $('html, body').animate({scrollTop: targetOffset}, 500);
               return next_tip;
