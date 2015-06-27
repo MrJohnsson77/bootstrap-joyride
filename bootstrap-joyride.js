@@ -114,7 +114,7 @@
           });
           
           $target.popover("tip");
-          var $tip = $target.data("popover").$tip
+          var $tip = $target.data("bs.popover").$tip
           $tipContents.push($tip);
           
           $li.data('targetElement', $target);
