@@ -69,9 +69,10 @@ Please feel free to contribute.
 	
 ##### Launch the Joyride on a button click.
 
-	<a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
-
 ```javascript
+
+<a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
+
 	$('#startride').click(function (e) {
     e.preventDefault();
 	    $(this).BootJoyride({
@@ -89,9 +90,17 @@ Please feel free to contribute.
     
 ##### Launch the Joyride on a button click with modal.
 
+Create an overlay div
+
+```html
+    <div id='overlay'></div>
+    <a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
+```
+
+Use this css overlay
 ```css
 	<style>
-   	#overlay {
+   	    #overlay {
 	    	position: fixed; 
 		    top: 0;
 		    left: 0;
@@ -105,9 +114,6 @@ Please feel free to contribute.
 		}
    	</style>
 ```
-	<div id='overlay'></div>
-
-	<a href="#joyride" id="startride" class="btn btn-large btn-danger"><span class="icon-bullhorn"></span>Start Joyride</a>
 
 ```javascript
 	$('#startride').click(function (e) {
