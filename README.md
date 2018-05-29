@@ -1,8 +1,6 @@
-# Bootstrap Joyride
+# Bootstrap Joyride - DEPRICATED
 
 Bootstrap Joyride is an easy to configure site tour wizard based on [Twitter Boostrap](http://twitter.github.com/bootstrap) and inspired by [Joyride](http://www.zurb.com/playground/jquery-joyride-feature-tour-plugin).
-
-Try live demo at [www.wocodi.com](http://www.wocodi.com).
 
 Bootstrap Joyride is MIT-licensed and absolutely free to use.
 
